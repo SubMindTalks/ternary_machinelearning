@@ -1,0 +1,31 @@
+Model Comparison Results
+=======================
+
+Standard Model Accuracy: 0.9879
+Ternary Model Accuracy: 0.9864
+
+Uncertainty Analysis
+-----------------
+correct_mean: 0.0171
+correct_std: 0.0303
+incorrect_mean: 0.0963
+incorrect_std: 0.0765
+
+Digit Pair Analysis
+-----------------
+4vs9:
+  mean_uncertainty: 0.0204
+  accuracy: 0.9839
+  num_samples: 1991.0000
+3vs8:
+  mean_uncertainty: 0.0250
+  accuracy: 0.9758
+  num_samples: 1984.0000
+1vs7:
+  mean_uncertainty: 0.0127
+  accuracy: 0.9931
+  num_samples: 2163.0000
+0vs1:
+  mean_uncertainty: 0.0076
+  accuracy: 0.9948
+  num_samples: 2115.0000

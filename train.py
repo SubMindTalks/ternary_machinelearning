@@ -9,19 +9,15 @@ import os
 def train(args):
     # Set device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
     # Data loading
     transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,))
     ])
-
     train_dataset = datasets.MNIST('./data', train=True, download=True, transform=transform)
     test_dataset = datasets.MNIST('./data', train=False, transform=transform)
-
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
-
     # Model initialization
     if args.model == 'ternary':
         model = TernaryMNISTNetwork().to(device)
@@ -30,7 +26,6 @@ def train(args):
         model = StandardMNISTNetwork().to(device)
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
         criterion = torch.nn.CrossEntropyLoss()
-
     # Training loop
     for epoch in range(args.epochs):
         if args.model == 'ternary':
@@ -48,7 +43,6 @@ def train(args):
                 loss = criterion(output, target)
                 loss.backward()
                 optimizer.step()
-
     # Save model
     os.makedirs(args.save_dir, exist_ok=True)
     model_path = os.path.join(args.save_dir, f'{args.model}_model.pth')
@@ -68,7 +62,6 @@ def main():
                         help='Learning rate')
     parser.add_argument('--save-dir', type=str, default='./models',
                         help='Directory to save models')
-
     args = parser.parse_args()
     train(args)
 

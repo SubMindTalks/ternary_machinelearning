@@ -1,17 +1,19 @@
 #!/bin/bash
-set -e
 
-# Train models
-echo "Training standard model..."
-python train.py --model standard --epochs 10 --batch-size 64 --lr 0.001
+# Activate Python environment
+source ~/env/bin/activate
 
-echo "Training ternary model..."
-python train.py --model ternary --epochs 10 --batch-size 64 --lr 0.001
+# Train and evaluate the Complex Number Model
+echo "Training and evaluating the Complex Number Model..."
+python train.py --model complex --epochs 5
 
-# Run comparison
-echo "Comparing models..."
-python compare.py --model-dir ./models --results-dir ./results
+# Train and evaluate the Ternary Logic Model
+echo "Training and evaluating the Ternary Logic Model..."
+python train.py --model ternary --epochs 5
 
-# Generate visualization
-echo "Generating plots..."
-python plot_results.py --results-dir ./results
+# Evaluate models on augmented datasets
+echo "Evaluating Ternary Logic Model on augmented datasets..."
+python test_augmentations.py --model_path ternary_model.h5
+
+# Deactivate environment
+deactivate
